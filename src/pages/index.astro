@@ -198,12 +198,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     }
 
     .heading {
+      display: block;
       font-family: var(--font-script);
       font-weight: 700;
       font-size: clamp(1.96rem, 19.6cqi, 5.6rem);
       line-height: 1;
       letter-spacing: -0.01em;
       margin: 0.05em 0 0;
+      padding: 0 1em;
       font-style: italic;
       white-space: nowrap;
     }
@@ -305,7 +307,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         object-fit: fill;
       }
       .frame-inner {
-        inset: 17% 13% 24% 13%;
+        inset: 17% 11% 24% 11%;
       }
       .text-group--top {
         top: 0;
@@ -314,7 +316,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         bottom: 0;
       }
       .heading {
-        font-size: clamp(1.4rem, 11.5vw, 3.8rem);
+        font-size: clamp(1.4rem, 11.5vw, 4rem);
       }
     }
 
