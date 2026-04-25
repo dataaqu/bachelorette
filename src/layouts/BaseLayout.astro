@@ -10,7 +10,7 @@ interface Props {
 const {
   title = "You are invited to Mariam's Bachelorette",
   description = "You are invited to Mariam's Bachelorette",
-  ogImage = '/champ.png',
+  ogImage = '/og-image.png',
 } = Astro.props;
 
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site || 'https://bachelorette-red.vercel.app').toString();
@@ -34,8 +34,11 @@ const ogImageUrl = new URL(ogImage, Astro.site || 'https://bachelorette-red.verc
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImageUrl} />
-    <meta property="og:image:width" content="200" />
-    <meta property="og:image:height" content="200" />
+    <meta property="og:image:secure_url" content={ogImageUrl} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="You are invited to Mariam's Bachelorette" />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:site_name" content="Mariam's Bachelorette" />
 
