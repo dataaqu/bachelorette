@@ -1,0 +1,336 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Bachelorette">
+  <div class="intro-overlay" aria-hidden="true"></div>
+
+  <main class="page">
+    <div class="stage">
+      <figure class="art art--frame">
+        <img
+          class="frame-img"
+          src="/Frame%20with%20mermaids.webp"
+          alt=""
+          width="1200"
+          height="1500"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+        />
+
+        <div class="frame-inner">
+          <img
+            class="art--sun"
+            src="/Sicilian%20sun.webp"
+            alt=""
+            width="500"
+            height="500"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+          />
+
+          <div class="text-group text-group--top">
+            <span class="save-date" style="--d: 0s">SAVE THE DATE</span>
+            <h1 class="heading" style="--d: 0.2s">You&rsquo;re Invited</h1>
+          </div>
+
+          <div class="text-group text-group--bottom">
+            <span class="date-range" style="--d: 0.85s">12-15 June</span>
+            <span class="subtitle" style="--d: 1s">
+              TO MARIAM&rsquo;S BACHELORETTE PARTY<br />IN IBIZA
+            </span>
+          </div>
+        </div>
+      </figure>
+    </div>
+  </main>
+
+  <script>
+    const REDIRECT_TARGET = '/timeline';
+    const REDIRECT_DELAY = 3000;
+
+    const last = document.querySelector('.subtitle');
+    const sun = document.querySelector('.art--sun');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function redirect() {
+      window.location.href = REDIRECT_TARGET;
+    }
+
+    function go() {
+      if (sun && !reduced) {
+        sun.classList.add('is-leaving');
+        setTimeout(redirect, 1200);
+      } else {
+        redirect();
+      }
+    }
+
+    if (last && !reduced) {
+      last.addEventListener(
+        'animationend',
+        () => setTimeout(go, REDIRECT_DELAY),
+        { once: true }
+      );
+    } else {
+      window.addEventListener('load', () => setTimeout(go, REDIRECT_DELAY));
+    }
+  </script>
+
+  <style>
+    .intro-overlay {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 20;
+      pointer-events: none;
+      animation: overlayOut 1.1s var(--ease-out) 0.2s forwards;
+    }
+
+    @keyframes overlayOut {
+      0% {
+        opacity: 1;
+        clip-path: inset(0 0 0 0);
+      }
+      100% {
+        opacity: 0;
+        clip-path: inset(0 0 100% 0);
+      }
+    }
+
+    .page {
+      min-height: 100svh;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(0.5rem, 1.5vw, 1rem);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stage {
+      position: relative;
+      width: 100%;
+      max-width: min(720px, 78svh);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .art--frame {
+      margin: 0;
+      position: relative;
+      width: 100%;
+      opacity: 0;
+      animation: fadeUp 1.3s var(--ease-out) 1.05s forwards;
+    }
+
+    .frame-img {
+      width: 100%;
+      height: auto;
+      user-select: none;
+      -webkit-user-drag: none;
+      position: relative;
+      z-index: 1;
+    }
+
+    .frame-inner {
+      position: absolute;
+      inset: 16% 17% 17% 17%;
+      z-index: 2;
+      container-type: inline-size;
+    }
+
+    .art--sun {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 69.7cqi;
+      max-width: 100%;
+      height: auto;
+      z-index: 3;
+      opacity: 0;
+      transform: translate(-50%, -50%) rotate(-45deg) scale(0.6);
+      animation: fadeSpin 1.8s var(--ease-out) 1.5s forwards;
+      will-change: transform, opacity;
+      pointer-events: none;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .text-group {
+      position: absolute;
+      left: 0;
+      right: 0;
+      z-index: 4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      color: var(--ink);
+    }
+
+    .text-group--top {
+      top: 5%;
+    }
+
+    .text-group--bottom {
+      bottom: 5%;
+    }
+
+    .save-date,
+    .subtitle {
+      font-family: var(--font-sans);
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      line-height: 1.4;
+    }
+
+    .save-date {
+      font-size: clamp(0.36rem, 2.66cqi, 0.65rem);
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: clamp(0.41rem, 3.36cqi, 0.74rem);
+    }
+
+    .heading {
+      font-family: var(--font-script);
+      font-weight: 700;
+      font-size: clamp(1.96rem, 19.6cqi, 5.6rem);
+      line-height: 1;
+      letter-spacing: -0.01em;
+      margin: 0.05em 0 0;
+      font-style: italic;
+      white-space: nowrap;
+    }
+
+    .date-range {
+      font-family: var(--font-script);
+      font-weight: 700;
+      font-size: clamp(0.84rem, 5.6cqi, 1.68rem);
+      line-height: 1;
+      font-style: italic;
+      color: var(--ink);
+      margin-bottom: 0.25em;
+    }
+
+    /* Text entrance animations — offset on top of a base 2s delay */
+    .save-date,
+    .subtitle,
+    .date-range {
+      opacity: 0;
+      transform: translateY(14px);
+      animation: textIn 0.85s var(--ease-out) calc(2s + var(--d, 0s)) forwards;
+    }
+
+    .heading {
+      opacity: 0;
+      transform: translateY(24px) scale(0.94);
+      animation: headingIn 1.15s var(--ease-out) calc(2s + var(--d, 0s)) forwards;
+    }
+
+    @keyframes fadeUp {
+      0% {
+        opacity: 0;
+        transform: translateY(28px) scale(0.98);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes fadeSpin {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) rotate(-45deg) scale(0.6);
+      }
+      100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(0deg) scale(1);
+      }
+    }
+
+    .art--sun.is-leaving {
+      animation: sunLeave 1.8s var(--ease-out) forwards;
+    }
+
+    @keyframes sunLeave {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(0deg) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) rotate(-45deg) scale(0.6);
+      }
+    }
+
+    @keyframes textIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes headingIn {
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @media (max-width: 767px) {
+      .page {
+        align-items: stretch;
+        padding: 0;
+        min-height: 100svh;
+      }
+      .stage {
+        max-width: 100%;
+        width: 100%;
+        height: 100svh;
+      }
+      .art--frame {
+        width: 100%;
+        height: 100%;
+      }
+      .frame-img {
+        width: 100%;
+        height: 100%;
+        object-fit: fill;
+      }
+      .frame-inner {
+        inset: 17% 14% 24% 14%;
+      }
+      .text-group--top {
+        top: 0;
+      }
+      .text-group--bottom {
+        bottom: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .intro-overlay { display: none; }
+      .art--frame,
+      .save-date,
+      .subtitle,
+      .heading,
+      .date-range {
+        opacity: 1;
+        animation: none;
+        transform: none;
+      }
+      .art--sun {
+        opacity: 1;
+        animation: none;
+        transform: translate(-50%, -50%);
+      }
+    }
+  </style>
+</BaseLayout>

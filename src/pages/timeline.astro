@@ -1,0 +1,366 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Bachelorette">
+  <div class="wrap">
+    <main class="page">
+      <div class="arch-wrap">
+        <img
+          class="arch"
+          src="/arch.png"
+          alt=""
+          width="800"
+          height="1000"
+          loading="eager"
+          decoding="async"
+        />
+
+        <div class="arch-text">
+          <span class="text-line text-line--first">LAST TOAST ON</span>
+          <h2 class="text-line text-line--script">
+            The Coast<img class="champ" src="/champ.png" alt="" width="200" height="200" />
+          </h2>
+          <span class="text-line text-line--last">OF IBIZA</span>
+        </div>
+
+        <div class="columns">
+          <img class="column-layer layer-1" src="/1.png" alt="" width="600" height="600" loading="eager" decoding="async" />
+          <img class="column-layer layer-3" src="/3.png" alt="" width="600" height="600" loading="eager" decoding="async" />
+          <img class="column-layer layer-2" src="/2.png" alt="" width="600" height="600" loading="eager" decoding="async" />
+          <img class="column-layer layer-4" src="/glass.png" alt="" width="200" height="200" loading="eager" decoding="async" />
+        </div>
+      </div>
+
+      <!-- მეორე გვერდის შიგთავსი -->
+    </main>
+
+    <footer class="cover" aria-hidden="true"></footer>
+  </div>
+
+  <style>
+    .wrap {
+      min-height: 100svh;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg);
+    }
+
+    .page {
+      flex: 1 1 auto;
+    }
+
+    .arch-wrap {
+      position: relative;
+      width: 80%;
+      max-width: min(550px, 48vh);
+      margin: 0 auto;
+      container-type: inline-size;
+    }
+
+    .arch-text {
+      position: absolute;
+      top: 18%;             /* ← ვერტიკალური პოზიცია (ცვალე) */
+      left: 50%;
+      transform: translateX(-50%);
+      width: 78%;           /* ← სიგანე arch-wrap-ის % */
+      text-align: center;
+      z-index: 5;
+      pointer-events: none;
+      color: var(--ink);
+        
+    }
+
+    .text-line {
+      margin: 0;
+      line-height: 1;
+    }
+
+    .text-line--first {
+      display: inline-block;
+      font-family: var(--font-sans);
+      font-weight: 800;
+      font-size: clamp(0.63rem, 4cqi, 1.35rem);
+      letter-spacing: 0.05em;
+      margin-top: 10px;
+      
+    }
+
+    .text-line--last {
+      display: inline-block;
+      font-family: var(--font-sans);
+      font-weight: 800;
+      font-size: clamp(0.56rem, 4cqi, 1.35rem);
+      letter-spacing: 0.05em;
+      transform: translate(50px, -25px);  
+    }
+
+    .text-line--script {
+      font-family: var(--font-script);
+      font-weight: 700;
+      font-style: italic;
+      font-size: clamp(2.07rem, 14.4cqi, 4.95rem);
+      margin: 0.05em 0;
+      letter-spacing: -0.01em;
+      transform: translateX( 5px);
+
+    }
+
+    .champ {
+      display: inline-block;
+      width: 1.45em;      
+      height: auto;
+      vertical-align: middle;
+      transform: translate(10px, -20px);
+      margin-left: -0.15em;
+      
+    }
+
+    @media (min-width: 768px) {
+      .arch-wrap {
+        width: 100%;
+      }
+    }
+
+    .arch {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .columns {
+      position: absolute;
+      top: 60%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 45.5%;
+      aspect-ratio: 1 / 1;
+      z-index: 2;
+
+    }
+
+    .column-layer {
+      position: absolute;
+      object-fit: contain;
+      display: block;
+    }
+
+    
+
+    .layer-1 {
+      z-index: 2;        /* ქვედა layer */
+      top: -5px;
+      left: -50px;
+      width: 100%;
+      height: 100%;
+    }
+
+    .layer-3 {
+      z-index: 1;        /* შუა layer */
+      top: 25px;
+      left: 60px;
+      width: 85%;
+      height: 85%;
+    }
+
+    .layer-2 {
+      z-index: 3;        /* ზედა layer */
+      top: 60px;
+      left: 5px;
+      width: 100%;
+      height: 100%;
+      transform: scale(1.05);    /* ← ვიზუალური გადიდება: 1 = ნორმალი, 1.2 = 120%, 0.8 = 80% */
+      transform-origin: center;
+    }
+
+    .layer-4 {
+      z-index: 4;        /* ყველაზე ზედა, layer-2-ის ზევით */
+      top: 10px;         /* ← layer-2-ის ზედა ნაწილში */
+      left: 50%;
+      width: 33%;        /* ← პატარა ზომა */
+      height: 33%;
+      transform: translateX(-30%);   /* ჰორიზონტალურად ცენტრი */
+    }
+
+    /* მობილურზე layer-1 და layer-3 ცენტრისკენ (layer-2-ისკენ) 10px-ით */
+    @media (max-width: 767px) {
+      .layer-1 {
+        left: -40px;
+      }
+      .layer-3 {
+        left: 50px;
+      }
+    }
+
+    .cover {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+      aspect-ratio: 4 / 1;
+      background-image: url('/cover.png');
+      background-size: cover;
+      background-position: bottom center;
+      background-repeat: no-repeat;
+    }
+
+    /* ═══════════════════════════════════════════════
+       LOAD ANIMATIONS
+       Sequence: arch → cover → texts+champ → layers 1/2/3 → glass
+       ─────────────────────────────────────────────── */
+
+    .arch {
+      animation: archIn 1s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
+    }
+
+    .cover {
+      animation: coverIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.7s both;
+    }
+
+    .text-line--first {
+      animation: textTopIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) 1.55s both;
+    }
+
+    .text-line--script {
+      animation: scriptIn 0.75s cubic-bezier(0.22, 1, 0.36, 1) 1.75s both;
+    }
+
+    .champ {
+      animation: champIn 0.85s cubic-bezier(0.34, 1.56, 0.64, 1) 2s both;
+    }
+
+    .text-line--last {
+      animation: textBottomIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) 2.1s both;
+    }
+
+    .layer-1 {
+      animation: layerIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) 2.6s both;
+    }
+
+    .layer-3 {
+      animation: layerIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) 2.75s both;
+    }
+
+    .layer-2 {
+      animation: layer2In 0.75s cubic-bezier(0.22, 1, 0.36, 1) 2.9s both;
+    }
+
+    .layer-4 {
+      animation: glassIn 0.95s cubic-bezier(0.34, 1.56, 0.64, 1) 3.4s both;
+    }
+
+    @keyframes archIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.96);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes coverIn {
+      0% {
+        opacity: 0;
+        transform: translateY(36px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes textTopIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-14px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes scriptIn {
+      0% {
+        opacity: 0;
+        transform: translateX(5px) translateY(-12px) scale(0.96);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(5px);
+      }
+    }
+
+    @keyframes champIn {
+      0% {
+        opacity: 0;
+        transform: translate(10px, -20px) scale(0.4) rotate(-25deg);
+      }
+      100% {
+        opacity: 1;
+        transform: translate(10px, -20px) scale(1) rotate(0deg);
+      }
+    }
+
+    @keyframes textBottomIn {
+      0% {
+        opacity: 0;
+        transform: translate(50px, -10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translate(50px, -25px);
+      }
+    }
+
+    @keyframes layerIn {
+      0% {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes layer2In {
+      0% {
+        opacity: 0;
+        transform: scale(0.88);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1.05);
+      }
+    }
+
+    @keyframes glassIn {
+      0% {
+        opacity: 0;
+        transform: translateX(-30%) translateY(-18px) scale(0.45) rotate(-30deg);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(-30%) scale(1) rotate(0deg);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .arch,
+      .cover,
+      .text-line--first,
+      .text-line--script,
+      .champ,
+      .text-line--last,
+      .layer-1,
+      .layer-2,
+      .layer-3,
+      .layer-4 {
+        animation: none !important;
+        opacity: 1 !important;
+      }
+    }
+  </style>
+</BaseLayout>
