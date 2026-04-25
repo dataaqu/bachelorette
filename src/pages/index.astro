@@ -305,13 +305,25 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         object-fit: fill;
       }
       .frame-inner {
-        inset: 17% 14% 24% 14%;
+        inset: 17% 16% 24% 16%;
       }
       .text-group--top {
         top: 0;
       }
       .text-group--bottom {
         bottom: 0;
+      }
+      .heading {
+        font-size: clamp(1.2rem, 12.5cqi, 4rem);
+      }
+      .save-date {
+        font-size: clamp(0.34rem, 2.4cqi, 0.6rem);
+      }
+      .subtitle {
+        font-size: clamp(0.38rem, 3cqi, 0.68rem);
+      }
+      .date-range {
+        font-size: clamp(0.78rem, 5cqi, 1.5rem);
       }
     }
 
